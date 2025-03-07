@@ -9,8 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas&display=swap" rel="stylesheet">
     <title>Amigo Secreto</title>
 </head>
-    
-
 <body>
     <main class="main-content">
         <header class="header-banner">
@@ -33,14 +31,29 @@
                     <img src="assets/play_circle_outline.png" alt="Ícono para sortear">
                     Sortear amigo
                 </button>
-                <button class="button-change" onclick="cambiarNombre()" aria-label="Cambiar nombre">
-                    🔄 Cambiar nombre (Si se sorteo tu nombre)
-                </button>
-            </div>            
+            </div>
         </section>
     </main>
-    <div id="botonReiniciarContainer" style="display: none;"></div>
+
+    <!-- Modal para mostrar el amigo sorteado y preguntar si eres tú -->
+    <div id="modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>El nombre sorteado es:</h2>
+            <p id="modal-nombre"></p>
+            <div class="modal-buttons">
+                <!-- Botón "No soy yo" -->
+                <button class="modal-button" id="botonDescartar" onclick="descartarAmigo()">No soy yo</button>
+                
+                <!-- Botón "Soy yo" -->
+                <button class="modal-button" id="botonAceptar" onclick="confirmarAmigo()">Soy yo</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="botonReiniciarContainer" style="display: none;">
+        <button class="button-reset" onclick="reiniciarLista()">Reiniciar sorteo</button>
+    </div>
+
     <script src="app.js" defer></script>
 </body>
-
 </html>

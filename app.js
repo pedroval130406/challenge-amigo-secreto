@@ -20,6 +20,12 @@ function agregarAmigo() {
     actualizarLista();
     input.value = '';
 }
+// Evento para detectar cuando se presiona Enter en el campo de texto
+document.getElementById("amigo").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        agregarAmigo(); // Llamar a la función de agregarAmigo al presionar Enter
+    }
+});
 
 let ultimoNombre = ""; // Para guardar el último nombre sorteado
 
@@ -28,50 +34,49 @@ function seleccionarAmigo() {
         alert("No hay más amigos en la lista.");
         return;
     }
-    
+
     // Seleccionar un índice al azar
     let indice = Math.floor(Math.random() * amigos.length);
     let amigoSeleccionado = amigos[indice];
 
     // Guardamos el último nombre sorteado
     ultimoNombre = amigoSeleccionado;
+
+    // Mostrar el nombre en el modal
+    let modalNombre = document.getElementById("modal-nombre");
+    modalNombre.textContent = amigoSeleccionado;
+
+    // Mostrar el modal
+    let modal = document.getElementById("modal");
+    modal.style.display = "flex";  // Mostrar el modal
 }
 
-
-    // Mostrar solo el último nombre seleccionado
-    let resultado = document.getElementById("resultado");
-    resultado.innerHTML = `<p>${amigoSeleccionado}</p>`; // Se muestra solo el nombre
-
-    // Eliminar el amigo seleccionado de la lista
-    amigos.splice(indice, 1);
-
-    // Actualizar la lista en pantalla
-    actualizarLista();
-
-    // Si era el último amigo, esperar antes de ocultar elementos
-    if (amigos.length === 0) {
-        setTimeout(() => {
-            ocultarElementos();
-        }, 5000); // Espera 5 segundos para que el usuario vea el último nombre
+function confirmarAmigo() {
+    // Si el nombre sorteado es el tuyo
+    if (ultimoNombre === "Tu Nombre") {  // Aquí debes reemplazar "Tu Nombre" con el nombre real del usuario
+        amigos.push(ultimoNombre); // Regresa el nombre a la lista
+        actualizarLista();
     }
+    ocultarModal();  // Ocultar el modal después de la elección
 }
 
-function cambiarNombre() {
-    console.log("Botón 'Cambiar nombre' clickeado");  // Verificar si se está llamando
-
-    if (ultimoNombre) {
-        amigos.push(ultimoNombre); // Volver a agregar el último nombre
-        actualizarLista(); // Actualizar la lista en pantalla
-        seleccionarAmigo(); // Hacer un nuevo sorteo
-    } else {
-        alert("No hay ningún nombre seleccionado para cambiar.");
-    }
+function descartarAmigo() {
+    // Si el nombre no es el tuyo, lo descartamos
+    amigos.splice(amigos.indexOf(ultimoNombre), 1);  // Elimina el último nombre sorteado de la lista
+    actualizarLista();  // Actualiza la lista en pantalla
+    ocultarModal();  // Ocultar el modal después de la elección
 }
 
 // Función para actualizar la lista de amigos en pantalla
 function actualizarLista() {
     let listaAmigos = document.getElementById("listaAmigos");
     listaAmigos.innerHTML = amigos.map(a => `<li>${a}</li>`).join('');
+}
+
+// Función para ocultar el modal
+function ocultarModal() {
+    let modal = document.getElementById("modal");
+    modal.style.display = "none";
 }
 
 // Función para ocultar todo y mostrar solo el botón de reinicio
@@ -87,7 +92,6 @@ function ocultarElementos() {
     // Asegurar que el contenedor del botón sea visible
     let container = document.getElementById("botonReiniciarContainer");
     container.style.display = "block"; 
-    container.innerHTML = `<button class="button-reset" onclick="reiniciarLista()">Reiniciar sorteo</button>`;
 }
 
 // Función para reiniciar la lista
