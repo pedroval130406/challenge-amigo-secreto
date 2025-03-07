@@ -57,6 +57,8 @@ function seleccionarAmigo() {
 }
 
 function cambiarNombre() {
+    console.log("Botón 'Cambiar nombre' clickeado");  // Verificar si se está llamando
+
     if (ultimoNombre) {
         amigos.push(ultimoNombre); // Volver a agregar el último nombre
         actualizarLista(); // Actualizar la lista en pantalla
