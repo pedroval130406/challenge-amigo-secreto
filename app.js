@@ -21,7 +21,6 @@ function agregarAmigo() {
     input.value = '';
 }
 
-// Función para seleccionar un amigo al azar y mostrar solo el último seleccionado
 let ultimoNombre = ""; // Para guardar el último nombre sorteado
 
 function seleccionarAmigo() {
@@ -29,13 +28,15 @@ function seleccionarAmigo() {
         alert("No hay más amigos en la lista.");
         return;
     }
-
+    
     // Seleccionar un índice al azar
     let indice = Math.floor(Math.random() * amigos.length);
     let amigoSeleccionado = amigos[indice];
 
     // Guardamos el último nombre sorteado
     ultimoNombre = amigoSeleccionado;
+}
+
 
     // Mostrar solo el último nombre seleccionado
     let resultado = document.getElementById("resultado");
