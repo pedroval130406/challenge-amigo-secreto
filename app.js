@@ -29,10 +29,13 @@ function seleccionarAmigo() {
         alert("No hay más amigos en la lista.");
         return;
     }
-    
+
     // Seleccionar un índice al azar
     let indice = Math.floor(Math.random() * amigos.length);
     let amigoSeleccionado = amigos[indice];
+
+    // Guardamos el último nombre sorteado
+    ultimoNombre = amigoSeleccionado;
 
     // Mostrar solo el último nombre seleccionado
     let resultado = document.getElementById("resultado");
@@ -48,7 +51,7 @@ function seleccionarAmigo() {
     if (amigos.length === 0) {
         setTimeout(() => {
             ocultarElementos();
-        }, 5000); // Espera 2 segundos para que el usuario vea el último nombre
+        }, 5000); // Espera 5 segundos para que el usuario vea el último nombre
     }
 }
 
@@ -57,6 +60,8 @@ function cambiarNombre() {
         amigos.push(ultimoNombre); // Volver a agregar el último nombre
         actualizarLista(); // Actualizar la lista en pantalla
         seleccionarAmigo(); // Hacer un nuevo sorteo
+    } else {
+        alert("No hay ningún nombre seleccionado para cambiar.");
     }
 }
 
