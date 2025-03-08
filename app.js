@@ -29,9 +29,12 @@ document.getElementById("amigo").addEventListener("keydown", function(event) {
 
 let ultimoNombre = ""; // Para guardar el último nombre sorteado
 
+let esPrimerSorteo = true; // Indica si es el primer sorteo de la temporada
+
 function seleccionarAmigo() {
-    if (amigos.length === 0) {
-        alert("No hay más amigos en la lista.");
+    // Si es el primer sorteo y hay menos de 2 amigos, no se permite el sorteo
+    if (esPrimerSorteo && amigos.length < 2) {
+        alert("Debe haber al menos 2 amigos en la lista para iniciar el sorteo.");
         return;
     }
 
@@ -48,7 +51,20 @@ function seleccionarAmigo() {
 
     // Mostrar el modal
     let modal = document.getElementById("modal");
-    modal.style.display = "flex";  // Mostrar el modal
+    modal.style.display = "flex";  
+
+    // Desactivar la validación después del primer sorteo
+    esPrimerSorteo = false;
+}
+
+function reiniciarLista() {
+    amigos = [];  // Vaciar la lista de amigos
+    actualizarLista(); // Limpiar la lista en la UI
+    document.getElementById("mensajeFin").style.display = "none"; 
+    document.getElementById("botonReiniciarContainer").style.display = "none";
+
+    // Reiniciar la variable para la nueva temporada
+    esPrimerSorteo = true;
 }
 
 function confirmarAmigo() {
