@@ -52,19 +52,14 @@ function seleccionarAmigo() {
 }
 
 function confirmarAmigo() {
-    // Si el nombre sorteado es el tuyo
-    if (ultimoNombre === "Tu Nombre") {  // Aquí debes reemplazar "Tu Nombre" con el nombre real del usuario
-        amigos.push(ultimoNombre); // Regresa el nombre a la lista
-        actualizarLista();
+    // Regresar el nombre a la lista sin duplicar
+    if (!amigos.includes(ultimoNombre)) {
+        amigos.push(ultimoNombre);
     }
-    ocultarModal();  // Ocultar el modal después de la elección
-}
+    actualizarLista();
 
-function descartarAmigo() {
-    // Si el nombre no es el tuyo, lo descartamos
-    amigos.splice(amigos.indexOf(ultimoNombre), 1);  // Elimina el último nombre sorteado de la lista
-    actualizarLista();  // Actualiza la lista en pantalla
-    ocultarModal();  // Ocultar el modal después de la elección
+    // Seleccionar otro amigo directamente
+    seleccionarAmigo();
 }
 
 // Función para actualizar la lista de amigos en pantalla
@@ -94,27 +89,6 @@ function ocultarElementos() {
     container.style.display = "block"; 
 }
 
-// Función para reiniciar la lista
-function reiniciarLista() {
-    amigos = []; // Vaciar la lista de amigos
-
-    // Restaurar los elementos a su estado original
-    document.querySelector(".input-section").style.display = "flex"; // Volver a mostrar la sección
-    document.querySelector(".header-banner").style.display = "flex"; // Mostrar el banner de nuevo
-
-    // Limpiar la lista y el resultado
-    document.getElementById("listaAmigos").innerHTML = "";
-    document.getElementById("resultado").innerHTML = "";
-
-    // Ocultar el botón de reinicio
-    let container = document.getElementById("botonReiniciarContainer");
-    container.style.display = "none"; // Ocultar el botón de reinicio
-    container.innerHTML = "";
-
-    // Restaurar el foco al campo de texto
-    document.getElementById("amigo").focus();
-}
-
 function toggleLista() {
     let lista = document.getElementById("listaAmigos");
     let boton = document.getElementById("botonToggleLista");
@@ -126,4 +100,45 @@ function toggleLista() {
         lista.style.display = "none";
         boton.textContent = "Mostrar lista";
     }
+}
+
+function verificarListaVacia() {
+    // Si la lista de amigos está vacía
+    if (amigos.length === 0) {
+        // Mostrar mensaje de finalización
+        const mensajeFinal = document.getElementById("mensaje-fin");
+        mensajeFinal.style.display = "block";  // Mostrar el mensaje de finalización
+
+        // Mostrar el contenedor del botón para reiniciar
+        const botonReiniciarContainer = document.getElementById("botonReiniciarContainer");
+        botonReiniciarContainer.style.display = "flex";  // Mostrar el botón de reiniciar
+
+        // Limpiar la lista de amigos y el resultado
+        document.getElementById("listaAmigos").innerHTML = "";
+        document.getElementById("resultado").innerHTML = "";
+
+        // También podemos ocultar la sección de agregar amigos para que la pantalla quede más limpia
+        document.querySelector(".input-section").style.display = "none";
+        document.querySelector(".header-banner").style.display = "none";
+    }
+}
+// Llamar a esta función después de que se elimine un amigo o en otros eventos relevantes
+function descartarAmigo() {
+    let index = amigos.indexOf(ultimoNombre);
+    if (index !== -1) {
+        amigos.splice(index, 1);  // Eliminar el nombre sorteado de la lista
+    }
+
+    // Actualizar la lista en pantalla
+    actualizarLista();
+    
+    // Ocultar el modal y verificar si la lista está vacía
+    ocultarModal();
+    
+    // Verificar si la lista se vació
+    verificarListaVacia();
+}
+
+function reiniciarLista() {
+    location.reload(); // Esto recarga la página y reinicia todo
 }
