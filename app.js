@@ -102,14 +102,17 @@ function toggleLista() {
     }
 }
 
+// Función para verificar si la lista está vacía y mostrar el mensaje de fin
 function verificarListaVacia() {
     // Si la lista de amigos está vacía
     if (amigos.length === 0) {
         // Mostrar mensaje de finalización
-        const mensajeFinal = document.getElementById("mensaje-fin");
-        mensajeFinal.style.display = "block";  // Mostrar el mensaje de finalización
+        document.getElementById("mensajeFin").style.display = "block";
 
-        // Mostrar el contenedor del botón para reiniciar
+        // Mostrar el contenedor del mensaje adicional
+        document.getElementById("mensaje-reinicio-container").style.display = "block";
+        
+        // Mostrar el contenedor del botón de reinicio
         const botonReiniciarContainer = document.getElementById("botonReiniciarContainer");
         botonReiniciarContainer.style.display = "flex";  // Mostrar el botón de reiniciar
 
@@ -122,6 +125,7 @@ function verificarListaVacia() {
         document.querySelector(".header-banner").style.display = "none";
     }
 }
+
 // Llamar a esta función después de que se elimine un amigo o en otros eventos relevantes
 function descartarAmigo() {
     let index = amigos.indexOf(ultimoNombre);
@@ -140,5 +144,11 @@ function descartarAmigo() {
 }
 
 function reiniciarLista() {
-    location.reload(); // Esto recarga la página y reinicia todo
+    location.reload(); // Recarga la página, restableciendo todo
+}
+
+function mostrarMensajeFin() {
+    // Muestra el mensaje de que los sorteos han terminado
+    document.getElementById('mensaje-acabado').style.display = 'block';
+    document.getElementById('botonReiniciarContainer').style.display = 'flex'; // Mostrar el botón de reiniciar
 }
