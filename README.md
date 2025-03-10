@@ -32,4 +32,5 @@ El programa debe permitirle al usuario el poder agregar nombre en el campo de te
 > * Gmail: pedroval130406@gmail.com
 > * Github: pedroval130406
 
-![image](https://github.com/user-attachments/assets/7e101695-77ac-4e85-98b6-f7c0bcd43872)
+![image](https://github.com/user-attachments/assets/30361ed6-323e-410b-9419-692a63aac424)
+
