@@ -354,3 +354,17 @@ ul {
 .button-reset:hover {
     background-color: #d45f1d;
 }
+
+li button {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+li button:hover {
+    background-color: darkred;
+}
