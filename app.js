@@ -80,9 +80,24 @@ function confirmarAmigo() {
 
 // Función para actualizar la lista de amigos en pantalla
 function actualizarLista() {
-    let listaAmigos = document.getElementById("listaAmigos");
-    listaAmigos.innerHTML = amigos.map(a => `<li>${a}</li>`).join('');
+    const lista = document.getElementById("listaAmigos");
+    lista.innerHTML = "";
+    
+    amigos.forEach((amigo, index) => {
+        const li = document.createElement("li");
+        li.textContent = amigo;
+
+        // Crear botón de eliminar
+        const botonEliminar = document.createElement("button");
+        botonEliminar.textContent = "❌";
+        botonEliminar.style.marginLeft = "10px";
+        botonEliminar.onclick = () => eliminarAmigo(index);
+
+        li.appendChild(botonEliminar);
+        lista.appendChild(li);
+    });
 }
+
 
 // Función para ocultar el modal
 function ocultarModal() {
@@ -167,4 +182,10 @@ function mostrarMensajeFin() {
     // Muestra el mensaje de que los sorteos han terminado
     document.getElementById('mensaje-acabado').style.display = 'block';
     document.getElementById('botonReiniciarContainer').style.display = 'flex'; // Mostrar el botón de reiniciar
+}
+
+function eliminarAmigo(index) {
+    amigos.splice(index, 1); // Eliminar el amigo del array
+    amigos = amigos.filter(Boolean); // Filtrar elementos vacíos del array
+    actualizarLista(); // Actualizar la lista en la interfaz
 }
