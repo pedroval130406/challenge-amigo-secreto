@@ -49,7 +49,7 @@ function seleccionarAmigo() {
     }
 
     if (amigos.length === 0) {
-        alert("No hay amigos en la lista para sortear.");
+        mostrarMensajeFin(); // Muestra el mensaje final directamente si la lista está vacía
         return;
     }
 
