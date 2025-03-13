@@ -38,7 +38,6 @@ function actualizarLista() {
 
 function eliminarAmigo(index) {
     amigos.splice(index, 1); // Eliminar el amigo del array
-    amigos = amigos.filter(Boolean); // Filtrar elementos vacíos del array
     actualizarLista(); // Actualizar la lista en la interfaz
 }
 
@@ -66,23 +65,32 @@ function mostrarModal(nombre) {
     modal.style.display = "flex";
 }
 
-function descartarAmigo() {
+function cerrarModal() {
     const modal = document.getElementById("modal");
     modal.style.display = "none";
-    ronda++;
+}
 
-    if (amigos.length === 1) {
+function descartarAmigo() {
+    const modalNombre = document.getElementById("modal-nombre").textContent;
+
+    // Eliminar el nombre seleccionado de la lista
+    amigos = amigos.filter((amigo) => amigo !== modalNombre);
+    actualizarLista();
+    cerrarModal();
+
+    if (amigos.length === 0) {
         mostrarMensajeFin();
     }
 }
 
 function confirmarAmigo() {
-    const modal = document.getElementById("modal");
-    modal.style.display = "none";
     const modalNombre = document.getElementById("modal-nombre").textContent;
 
+    // Volver a agregar el nombre al final de la lista
     amigos = amigos.filter((amigo) => amigo !== modalNombre);
+    amigos.push(modalNombre);
     actualizarLista();
+    cerrarModal();
 
     ronda++;
     primeraVez = false;
